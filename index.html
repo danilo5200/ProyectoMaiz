@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detección Fitosanitaria | Udenar</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo-container">
+            <i class="fa-solid fa-leaf"></i>
+            <h1>FitoScan AI</h1>
+        </div>
+        <p>Inteligencia Artificial para el Cultivo de Maíz</p>
+    </header>
+
+    <main class="container">
+        
+        <section id="login-section" class="card fade-in">
+            <div class="card-header">
+                <h2>Acceso de Productores</h2>
+                <p>Ingrese sus credenciales para continuar</p>
+            </div>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Correo electrónico" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" id="btn-login" class="btn btn-primary">
+                        Iniciar Sesión
+                    </button>
+                    <button type="button" id="btn-register" class="btn btn-secondary">
+                        Registrarse
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section id="dashboard-section" class="fade-in" style="display: none;">
+            
+            <div class="card dashboard-header">
+                <div class="user-info">
+                    <h2>Panel de Diagnóstico</h2>
+                    <p>Suba una fotografía clara de la hoja afectada.</p>
+                </div>
+                <button type="button" id="btn-logout" class="btn-icon">
+                    <i class="fa-solid fa-right-from-bracket"></i> Salir
+                </button>
+            </div>
+
+            <div class="card analysis-card">
+                <form id="diagnostico-form">
+                    <div class="upload-area">
+                        <i class="fa-solid fa-camera upload-icon"></i>
+                        <label for="foto-hoja" class="upload-label">
+                            Tomar foto o elegir de la galería
+                        </label>
+                        <input type="file" id="foto-hoja" accept="image/*" capture="environment">
+                    </div>
+                    
+                    <button type="button" id="btn-analizar" class="btn btn-action">
+                        <i class="fa-solid fa-microchip"></i> Analizar con IA
+                    </button>
+                </form>
+                
+                <div id="resultado-box" class="result-area hidden">
+                    </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
