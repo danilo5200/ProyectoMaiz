@@ -268,3 +268,31 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Estilo para alternar entre Login y Registro */
+.hidden {
+    display: none !important;
+}
+
+.switch-text {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 15px;
+    color: var(--text-light);
+}
+
+.switch-text a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+/* Mejora para el área de resultado */
+.result-area {
+    white-space: pre-line; /* Para que respete los saltos de línea del JS */
+    line-height: 1.5;
+}
