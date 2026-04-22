@@ -1,68 +1,124 @@
 /* ==========================================
+   IMPORT FONTS
+=========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+/* ==========================================
    VARIABLES Y RESET
 =========================================== */
 :root {
-    --primary-color: #2E7D32; /* Verde bosque */
-    --secondary-color: #81C784; /* Verde claro */
-    --accent-color: #FFC107; /* Amarillo maíz */
-    --bg-color: #F4F7F6; /* Fondo gris muy claro */
-    --text-dark: #333333;
-    --text-light: #777777;
+    --primary-color: #2E7D32;
+    --primary-dark: #1b5e20;
+    --primary-light: #4CAF50;
+    --secondary-color: #81C784;
+    --accent-color: #FFC107;
+    --accent-dark: #e0a800;
+    --bg-color: #F0F5F1;
+    --bg-card: #FFFFFF;
+    --text-dark: #1a2e1b;
+    --text-mid: #4a5e4b;
+    --text-light: #8fa690;
     --white: #FFFFFF;
-    --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    --border-radius: 16px;
-    --transition: all 0.3s ease;
+    --shadow-sm: 0 2px 8px rgba(46, 125, 50, 0.08);
+    --shadow-md: 0 8px 32px rgba(46, 125, 50, 0.12);
+    --shadow-lg: 0 20px 60px rgba(46, 125, 50, 0.16);
+    --border-radius: 20px;
+    --border-radius-sm: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --green-glow: 0 0 0 3px rgba(46, 125, 50, 0.15);
 }
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg-color);
+    background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(129, 199, 132, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(46, 125, 50, 0.08) 0%, transparent 50%);
+    background-attachment: fixed;
     color: var(--text-dark);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================
    ENCABEZADO
 =========================================== */
 .main-header {
-    background: linear-gradient(135deg, var(--primary-color), #1b5e20);
+    background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary-color) 60%, var(--primary-light) 100%);
     color: var(--white);
     text-align: center;
-    padding: 2rem 1rem 3rem;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: var(--shadow);
+    padding: 3rem 1.5rem 5rem;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background shapes */
+.main-header::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.main-header::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(255, 193, 7, 0.08);
+    pointer-events: none;
 }
 
 .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 5px;
+    gap: 12px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 .logo-container i {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--accent-color);
+    filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.4));
 }
 
 .logo-container h1 {
+    font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
 
 .main-header p {
     font-size: 0.9rem;
-    opacity: 0.9;
+    font-weight: 300;
+    opacity: 0.85;
+    letter-spacing: 0.3px;
+    position: relative;
+    z-index: 1;
 }
 
 /* ==========================================
@@ -70,33 +126,45 @@ body {
 =========================================== */
 .container {
     flex: 1;
-    max-width: 500px;
-    margin: -30px auto 20px; /* Sube la tarjeta para superponerse al header */
-    padding: 0 20px;
+    max-width: 480px;
     width: 100%;
+    margin: -40px auto 40px;
+    padding: 0 20px;
 }
 
 .card {
-    background-color: var(--white);
+    background-color: var(--bg-card);
     border-radius: var(--border-radius);
-    padding: 2rem;
-    box-shadow: var(--shadow);
+    padding: 2.2rem 2rem;
+    box-shadow: var(--shadow-md);
     margin-bottom: 20px;
+    border: 1px solid rgba(129, 199, 132, 0.15);
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .card-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .card-header h2 {
+    font-family: 'Fraunces', serif;
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
 }
 
 .card-header p {
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 400;
 }
 
 /* ==========================================
@@ -109,25 +177,42 @@ body {
 
 .input-group i {
     position: absolute;
-    left: 15px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-light);
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: var(--transition);
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 13px 16px 13px 46px;
+    border: 1.5px solid rgba(129, 199, 132, 0.3);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: rgba(240, 245, 241, 0.5);
+    color: var(--text-dark);
     transition: var(--transition);
+}
+
+.input-group input::placeholder {
+    color: var(--text-light);
+    font-weight: 300;
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    background-color: var(--white);
+    box-shadow: var(--green-glow);
+}
+
+.input-group input:focus + i,
+.input-group:focus-within i {
+    color: var(--primary-color);
 }
 
 /* ==========================================
@@ -137,15 +222,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 1.5rem;
+    margin-top: 1.8rem;
 }
 
 .btn {
     width: 100%;
-    padding: 12px;
+    padding: 13px 20px;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -153,34 +239,59 @@ body {
     justify-content: center;
     align-items: center;
     gap: 8px;
+    letter-spacing: 0.2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: var(--transition);
+}
+
+.btn:hover::after {
+    background: rgba(255,255,255,0.08);
+}
+
+.btn:active {
+    transform: scale(0.98);
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white);
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: #1b5e20;
+    box-shadow: 0 6px 24px rgba(46, 125, 50, 0.4);
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
     background-color: transparent;
     color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    border: 1.5px solid rgba(46, 125, 50, 0.4);
 }
 
 .btn-secondary:hover {
     background-color: rgba(46, 125, 50, 0.05);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
 }
 
 .btn-action {
-    background-color: var(--accent-color);
-    color: #333;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: #1a2e1b;
+    box-shadow: 0 4px 16px rgba(255, 193, 7, 0.3);
 }
 
 .btn-action:hover {
-    background-color: #e0a800;
+    box-shadow: 0 6px 24px rgba(255, 193, 7, 0.45);
+    transform: translateY(-1px);
 }
 
 .btn-icon {
@@ -189,6 +300,14 @@ body {
     color: #e53935;
     font-weight: 600;
     cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: var(--transition);
+    font-size: 0.85rem;
+}
+
+.btn-icon:hover {
+    background-color: rgba(229, 57, 53, 0.08);
 }
 
 /* ==========================================
@@ -202,35 +321,46 @@ body {
 }
 
 .upload-area {
-    border: 2px dashed var(--secondary-color);
+    border: 2px dashed rgba(129, 199, 132, 0.5);
     border-radius: var(--border-radius);
-    padding: 2rem 1rem;
+    padding: 2.5rem 1.5rem;
     text-align: center;
     margin-bottom: 1.5rem;
-    background-color: rgba(129, 199, 132, 0.05);
+    background: linear-gradient(135deg, rgba(129, 199, 132, 0.04), rgba(46, 125, 50, 0.06));
     transition: var(--transition);
     position: relative;
     cursor: pointer;
 }
 
 .upload-area:hover {
-    background-color: rgba(129, 199, 132, 0.1);
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(129, 199, 132, 0.1), rgba(46, 125, 50, 0.1));
+    box-shadow: var(--shadow-sm);
 }
 
 .upload-icon {
     font-size: 3rem;
     color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(46, 125, 50, 0.2));
 }
 
 .upload-label {
     display: block;
     color: var(--text-dark);
     font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
+    margin-bottom: 4px;
 }
 
-/* Oculta el input original para que solo se vea la caja diseñada */
+.upload-area p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
 .upload-area input[type="file"] {
     position: absolute;
     top: 0;
@@ -246,38 +376,26 @@ body {
 =========================================== */
 .result-area {
     margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 18px 20px;
+    border-radius: var(--border-radius-sm);
     text-align: center;
-    font-weight: 600;
-    background-color: #E8F5E9;
-    color: var(--primary-color);
-    border: 1px solid var(--secondary-color);
-}
-
-.hidden {
-    display: none;
-}
-
-/* Animaciones suaves */
-.fade-in {
+    font-weight: 500;
+    font-size: 0.9rem;
+    background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+    color: var(--primary-dark);
+    border: 1.5px solid rgba(129, 199, 132, 0.4);
+    line-height: 1.6;
+    white-space: pre-line;
     animation: fadeIn 0.5s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Estilo para alternar entre Login y Registro */
-.hidden {
-    display: none !important;
-}
-
+/* ==========================================
+   TEXTO DE CAMBIO (LOGIN <-> REGISTRO)
+=========================================== */
 .switch-text {
     text-align: center;
     font-size: 0.85rem;
-    margin-top: 15px;
+    margin-top: 18px;
     color: var(--text-light);
 }
 
@@ -285,14 +403,54 @@ body {
     color: var(--primary-color);
     font-weight: 600;
     text-decoration: none;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
 }
 
 .switch-text a:hover {
-    text-decoration: underline;
+    border-bottom-color: var(--primary-color);
+    opacity: 0.8;
 }
 
-/* Mejora para el área de resultado */
-.result-area {
-    white-space: pre-line; /* Para que respete los saltos de línea del JS */
-    line-height: 1.5;
+/* ==========================================
+   UTILIDADES
+=========================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   ANIMACIONES
+=========================================== */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   RESPONSIVE
+=========================================== */
+@media (max-width: 480px) {
+    .main-header {
+        padding: 2.5rem 1rem 4.5rem;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+
+    .logo-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        margin-top: -35px;
+        padding: 0 14px;
+    }
+
+    .card {
+        padding: 1.8rem 1.5rem;
+    }
 }
