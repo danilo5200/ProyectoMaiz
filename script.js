@@ -1,3 +1,8 @@
+// Configuración de Supabase
+const supabaseUrl = 'https://axffgzfbqsirwqzhrurm.supabase.co'; // Reemplaza con tu URL de Supabase
+const supabaseKey = 'sb_publishable_W_dEvWHlEJcRXm44MqIIvQ_b8rgfVFZ'; // Reemplaza con tu clave anónima
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 // ==========================================
 // REFERENCIAS A LA INTERFAZ
 // ==========================================
