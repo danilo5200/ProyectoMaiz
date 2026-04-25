@@ -30,7 +30,7 @@ document.getElementById('show-register').addEventListener('click', (e) => {
 });
 
 // ==========================================
-// REGISTRO
+// REGISTRO (Actualizado para usar el Trigger en BD)
 // ==========================================
 async function registrarUsuario() {
     const nombre = document.getElementById('reg-nombre').value.trim();
@@ -42,9 +42,15 @@ async function registrarUsuario() {
         return;
     }
 
+    // El Trigger de Supabase atrapará este 'nombre_completo'
     const { data, error } = await supabaseClient.auth.signUp({
         email,
-        password
+        password,
+        options: {
+            data: {
+                nombre_completo: nombre 
+            }
+        }
     });
 
     if (error) {
@@ -52,23 +58,8 @@ async function registrarUsuario() {
         return;
     }
 
-    // ⚠️ Validación importante (email confirmation)
     if (!data.user) {
         alert("Revisa tu correo para confirmar el registro.");
-        return;
-    }
-
-    // Crear perfil
-    const { error: perfilError } = await supabaseClient
-        .from('perfiles')
-        .insert({
-            id: data.user.id,
-            nombre_completo: nombre,
-            ubicacion_cultivo: ''
-        });
-
-    if (perfilError) {
-        alert("Error creando perfil: " + perfilError.message);
         return;
     }
 
@@ -98,8 +89,7 @@ async function iniciarSesion() {
     loginSection.style.display = 'none';
     dashboardSection.style.display = 'block';
 
-    document.getElementById('welcome-user').innerText =
-        "Bienvenido, Productor";
+    document.getElementById('welcome-user').innerText = "Bienvenido, Productor";
 }
 
 // ==========================================
@@ -136,15 +126,10 @@ async function analizarHoja() {
             'Hoja Sana'
         ];
 
-        const diagnostico =
-            enfermedades[Math.floor(Math.random() * enfermedades.length)];
+        const diagnostico = enfermedades[Math.floor(Math.random() * enfermedades.length)];
+        const confianza = parseFloat((Math.random() * (99.9 - 85.0) + 85.0).toFixed(2));
 
-        const confianza = parseFloat(
-            (Math.random() * (99.9 - 85.0) + 85.0).toFixed(2)
-        );
-
-        resultadoBox.innerText =
-            `Diagnóstico: ${diagnostico}\nConfianza: ${confianza}%`;
+        resultadoBox.innerText = `Diagnóstico: ${diagnostico}\nConfianza: ${confianza}%`;
 
         const { data } = await supabaseClient.auth.getUser();
         const user = data.user;
@@ -175,15 +160,8 @@ async function analizarHoja() {
 // EVENTOS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('btn-register')
-        .addEventListener('click', registrarUsuario);
-
-    document.getElementById('btn-login')
-        .addEventListener('click', iniciarSesion);
-
-    document.getElementById('btn-logout')
-        .addEventListener('click', cerrarSesion);
-
-    document.getElementById('btn-analizar')
-        .addEventListener('click', analizarHoja);
+    document.getElementById('btn-register').addEventListener('click', registrarUsuario);
+    document.getElementById('btn-login').addEventListener('click', iniciarSesion);
+    document.getElementById('btn-logout').addEventListener('click', cerrarSesion);
+    document.getElementById('btn-analizar').addEventListener('click', analizarHoja);
 });
